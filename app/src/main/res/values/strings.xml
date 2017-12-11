@@ -1,3 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Achilles</string>
+
+    <string name="app_name">GameBox</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="app_id">766497663395114</string>
+    <string name="URL">http://54.178.232.185</string>
+    <string name="testURL">http://imagic-api-187001008.ap-northeast-1.elb.amazonaws.com</string>
+
 </resources>
