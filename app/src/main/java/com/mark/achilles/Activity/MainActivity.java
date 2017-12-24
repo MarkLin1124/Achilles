@@ -1,9 +1,11 @@
-package com.mark.achilles;
+package com.mark.achilles.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.mark.achilles.R;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
