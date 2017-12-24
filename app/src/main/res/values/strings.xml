@@ -11,4 +11,9 @@
     <!-- home page activity -->
     <string name="home_page_team_manager">球隊管理</string>
     <string name="home_page_record">開始紀錄</string>
+
+    <!-- create team dialog -->
+    <string name="create_team_name">球隊名稱</string>
+    <string name="create_team_code">隊伍密碼</string>
+    <string name="create_team_code_hint">四碼數字</string>
 </resources>
