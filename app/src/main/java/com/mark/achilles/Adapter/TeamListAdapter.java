@@ -53,6 +53,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListHolder> {
     }
 
     public void setData(ArrayList<Team> list) {
+        this.list.clear();
         this.list = list;
 
         notifyDataSetChanged();

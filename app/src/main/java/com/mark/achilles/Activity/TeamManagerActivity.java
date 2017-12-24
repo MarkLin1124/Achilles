@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 
 import com.mark.achilles.Adapter.TeamListAdapter;
 import com.mark.achilles.DialogFragment.CreateTeamDialogFragment;
+import com.mark.achilles.Helper.DatabaseHelper;
 import com.mark.achilles.Interface.OnAdapterItemClick;
 import com.mark.achilles.Interface.OnDialogClickListener;
 import com.mark.achilles.Module.Team;
@@ -20,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.mark.achilles.Constant.DialogConstant.DIALOG_CREATE_TEAM;
+import static com.mark.achilles.Constant.DialogConstant.*;
 
 /**
  * Created by marklin on 2017/12/24.
@@ -45,12 +46,7 @@ public class TeamManagerActivity extends BaseActivity implements OnDialogClickLi
         recyclerviewTeamList.setAdapter(mAdapter);
         mAdapter.setOnAdapterItemClick(this);
 
-        ArrayList<Team> list = new ArrayList<>();
-        Team team = new Team();
-        team.teamName = "team123";
-        team.teamCode = 1234;
-        list.add(team);
-
+        ArrayList<Team> list = DatabaseHelper.getInstance(TeamManagerActivity.this).getTeamList();
         mAdapter.setData(list);
     }
 
@@ -68,6 +64,8 @@ public class TeamManagerActivity extends BaseActivity implements OnDialogClickLi
     public void OnPositiveButtonClick(String dialogTag) {
         switch (dialogTag) {
             case DIALOG_CREATE_TEAM:
+                ArrayList<Team> list = DatabaseHelper.getInstance(TeamManagerActivity.this).getTeamList();
+                mAdapter.setData(list);
                 break;
         }
     }
