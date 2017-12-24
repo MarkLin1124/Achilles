@@ -60,7 +60,7 @@ public class Team implements Parcelable {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("team: {").append("_id: ").append(_id).append(", teamName: ").append(teamName).append(", teamCode: ").append(teamCode).append("}");
+        builder.append("{").append("_id: ").append(_id).append(", teamName: ").append(teamName).append(", teamCode: ").append(teamCode).append("}");
 
         return builder.toString();
     }
