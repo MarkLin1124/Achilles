@@ -1,8 +1,8 @@
 package com.mark.achilles.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,7 +26,7 @@ public class HomePageActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.homepage);
+        setContentView(R.layout.activity_homepage);
         ButterKnife.bind(this);
     }
 
@@ -34,6 +34,7 @@ public class HomePageActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.playermanager:
+                startActivity(new Intent().setClass(HomePageActivity.this, TeamManagerActivity.class));
                 break;
             case R.id.record:
                 break;
