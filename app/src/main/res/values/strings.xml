@@ -13,6 +13,8 @@
     <string name="cancel">取消</string>
     <string name="finish">完成</string>
 
+    <string name="date">日期</string>
+
     <!-- home page activity -->
     <string name="home_page_team_manager">球隊管理</string>
     <string name="home_page_record">開始紀錄</string>
@@ -30,4 +32,11 @@
     <string name="create_player_leader">隊長</string>
     <string name="create_player_number_empty">球員背號不得為空</string>
     <string name="create_player_name_empty">球員名稱不得為空</string>
+
+    <!-- select team activity -->
+    <string name="select_team_constant">選擇球隊</string>
+
+    <!-- game list activity -->
+    <string name="game_list_title">記錄比賽</string>
+    <string name="game_list_name_constant">賽事名稱</string>
 </resources>

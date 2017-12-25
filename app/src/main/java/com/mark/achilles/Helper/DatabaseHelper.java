@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.mark.achilles.Constant.DatabaseConstant;
+import com.mark.achilles.Module.GameInfo;
 import com.mark.achilles.Module.Player;
 import com.mark.achilles.Module.Team;
 
@@ -43,8 +44,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + PLAYER_TEAM_ID + " INTEGER NOT NULL , "
                 + PLAYER_NAME + " TEXT NOT NULL , "
                 + PLAYER_NUMBER + " INTEGER NOT NULL , "
-                + PLAYER_IS_LEADER + " INTEGER DEFAULT 0 ,"
+                + PLAYER_IS_LEADER + " INTEGER DEFAULT 0 , "
                 + PLAYER_IS_DELETE + " INTEGER DEFAULT 0)");
+        db.execSQL("CREATE TABLE " + TABLE_GAME_INFO
+                + " (_id INTEGER PRIMARY KEY NOT NULL , "
+                + GAME_INFO_DATE + " TEXT NOT NULL , "
+                + GAME_INFO_NAME + " TEXT NOT NULL , "
+                + GAME_INFO_TEAM + " INTEGER NOT NULL , "
+                + GAME_INFO_COURT + " TEXT NOT NULL , "
+                + GAME_INFO_ENEMY_NAME + " TEXT NOT NULL , "
+                + GAME_INFO_IS_DELETE + " INTEGER DEFAULT 0)");
     }
 
     @Override
@@ -106,6 +115,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Player player = new Player(cursor);
             if (!player.isDelete) {
                 list.add(player);
+            }
+        }
+
+        cursor.close();
+        return list;
+    }
+
+    public ArrayList<GameInfo> getGameInfoList(int teamID) {
+        ArrayList<GameInfo> list = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().query(TABLE_GAME_INFO, null, GAME_INFO_TEAM + "=?", new String[]{Integer.toString(teamID)}, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            GameInfo gameInfo = new GameInfo(cursor);
+            if (!gameInfo.isDelete) {
+                list.add(gameInfo);
             }
         }
 

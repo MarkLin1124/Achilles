@@ -29,6 +29,9 @@
             android:name=".Activity.SelectTeamActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".Activity.GameListActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".Activity.MainActivity"
             android:screenOrientation="landscape" />
     </application>

@@ -1,5 +1,6 @@
 package com.mark.achilles.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -44,6 +45,10 @@ public class SelectTeamActivity extends BaseActivity implements OnAdapterItemCli
     @Override
     public void onItemClick(Parcelable parcelable) {
         Team team = (Team) parcelable;
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Team.TAG, team);
+        startActivity(new Intent().setClass(SelectTeamActivity.this, GameListActivity.class).putExtras(bundle));
     }
 
     @Override
