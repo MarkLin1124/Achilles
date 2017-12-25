@@ -37,6 +37,7 @@ public class HomePageActivity extends BaseActivity {
                 startActivity(new Intent().setClass(HomePageActivity.this, TeamManagerActivity.class));
                 break;
             case R.id.record:
+                startActivity(new Intent().setClass(HomePageActivity.this, SelectTeamActivity.class));
                 break;
         }
     }
