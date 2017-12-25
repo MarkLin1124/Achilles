@@ -11,7 +11,9 @@
     <string name="edit">編輯</string>
     <string name="delete">刪除</string>
     <string name="cancel">取消</string>
+    <string name="create">建立</string>
     <string name="finish">完成</string>
+    <string name="confirm">確定</string>
 
     <string name="date">日期</string>
 
@@ -40,4 +42,12 @@
     <string name="game_list_title">記錄比賽</string>
     <string name="game_list_name_constant">賽事名稱</string>
     <string name="game_list_name">%1$s vs %2$s</string>
+
+    <!-- create game dialog -->
+    <string name="create_game_name">賽事名稱</string>
+    <string name="create_game_enemy">比賽對手</string>
+    <string name="create_game_court">比賽場地</string>
+    <string name="create_game_name_empty">比賽名稱不得為空</string>
+    <string name="create_game_enemy_empty">比賽對手不得為空</string>
+    <string name="create_game_court_empty">比賽場地不得為空</string>
 </resources>

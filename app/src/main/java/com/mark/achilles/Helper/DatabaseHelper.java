@@ -153,7 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<GameInfo> getGameInfoList(int teamID) {
         ArrayList<GameInfo> list = new ArrayList<>();
-        Cursor cursor = getReadableDatabase().query(TABLE_GAME_INFO, null, GAME_INFO_TEAM + "=?", new String[]{Integer.toString(teamID)}, null, null, null, null);
+        Cursor cursor = getReadableDatabase().query(TABLE_GAME_INFO, null, GAME_INFO_TEAM + "=?", new String[]{Integer.toString(teamID)}, null, null,"_id DESC", null);
 
         while (cursor.moveToNext()) {
             GameInfo gameInfo = new GameInfo(cursor);

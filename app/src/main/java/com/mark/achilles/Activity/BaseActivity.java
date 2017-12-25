@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.mark.achilles.Constant.Constant;
 import com.mark.achilles.DialogFragment.BaseDialogFragment;
+import com.mark.achilles.DialogFragment.SimpleDialogFragment;
 import com.mark.achilles.DialogFragment.SimpleListDialogFragment;
 import com.mark.achilles.Interface.OnDialogClickListener;
 import com.mark.achilles.Interface.OnListDialogClickListener;
@@ -38,6 +39,15 @@ public class BaseActivity extends AppCompatActivity {
         bundle.putSerializable(Constant.LIST, list);
         SimpleListDialogFragment dialogFragment = SimpleListDialogFragment.newInstance(bundle);
         dialogFragment.setonListDialogClickListener(onListDialogClickListener);
+        dialogFragment.show(getSupportFragmentManager(), tag);
+    }
+
+    protected void openSimpleDialogFragment(String title, String content, String tag, OnDialogClickListener onDialogClickListener) {
+        Bundle bundle = new Bundle();
+        bundle.putString(Constant.TITLE, title);
+        bundle.putString(Constant.CONTENT, content);
+        SimpleDialogFragment dialogFragment = SimpleDialogFragment.newInstance(bundle);
+        dialogFragment.setOnDialogClickListener(onDialogClickListener);
         dialogFragment.show(getSupportFragmentManager(), tag);
     }
 }
