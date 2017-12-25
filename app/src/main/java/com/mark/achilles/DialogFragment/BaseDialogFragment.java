@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 
 import com.mark.achilles.Interface.OnDialogClickListener;
+import com.mark.achilles.Interface.OnListDialogClickListener;
 import com.mark.achilles.R;
 
 /**
@@ -15,6 +16,7 @@ import com.mark.achilles.R;
 
 public class BaseDialogFragment extends DialogFragment {
     protected OnDialogClickListener onDialogClickListener;
+    protected OnListDialogClickListener onListDialogClickListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,5 +36,9 @@ public class BaseDialogFragment extends DialogFragment {
 
     public void setOnDialogClickListener(OnDialogClickListener onDialogClickListener) {
         this.onDialogClickListener = onDialogClickListener;
+    }
+
+    public void setonListDialogClickListener(OnListDialogClickListener onListDialogClickListener) {
+        this.onListDialogClickListener = onListDialogClickListener;
     }
 }

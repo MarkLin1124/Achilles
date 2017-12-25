@@ -18,4 +18,5 @@ public class DatabaseConstant {
     public static final String PLAYER_NAME = "playerName";
     public static final String PLAYER_NUMBER = "playerNumber";
     public static final String PLAYER_IS_LEADER = "playerIsLeader";
+    public static final String PLAYER_IS_DELETE = "playerIsDelete";
 }

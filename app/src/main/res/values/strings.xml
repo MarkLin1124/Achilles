@@ -8,6 +8,11 @@
     <string name="URL">http://54.178.232.185</string>
     <string name="testURL">http://imagic-api-187001008.ap-northeast-1.elb.amazonaws.com</string>
 
+    <string name="edit">編輯</string>
+    <string name="delete">刪除</string>
+    <string name="cancel">取消</string>
+    <string name="finish">完成</string>
+
     <!-- home page activity -->
     <string name="home_page_team_manager">球隊管理</string>
     <string name="home_page_record">開始紀錄</string>

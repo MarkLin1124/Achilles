@@ -14,6 +14,7 @@ import com.mark.achilles.DialogFragment.CreatePlayerDialogFragment;
 import com.mark.achilles.Helper.DatabaseHelper;
 import com.mark.achilles.Interface.OnAdapterItemClick;
 import com.mark.achilles.Interface.OnDialogClickListener;
+import com.mark.achilles.Interface.OnListDialogClickListener;
 import com.mark.achilles.Module.Player;
 import com.mark.achilles.Module.Team;
 import com.mark.achilles.R;
@@ -41,6 +42,7 @@ public class PlayerManagerActivity extends BaseActivity implements OnAdapterItem
 
     private Team mTeam;
     private PlayerManagerAdapter managerAdapter;
+    private ArrayList<Player> list;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class PlayerManagerActivity extends BaseActivity implements OnAdapterItem
         recyclerviewPlayerList.setAdapter(managerAdapter);
         managerAdapter.setOnAdapterItemClick(this);
 
-        ArrayList<Player> list = DatabaseHelper.getInstance(PlayerManagerActivity.this).getPlayerList(mTeam._id);
+        list = DatabaseHelper.getInstance(PlayerManagerActivity.this).getPlayerList(mTeam._id);
         managerAdapter.setData(list);
     }
 
@@ -75,14 +77,36 @@ public class PlayerManagerActivity extends BaseActivity implements OnAdapterItem
 
     @Override
     public void onItemLongClick(Parcelable parcelable) {
-        Player player = (Player) parcelable;
+        final Player player = (Player) parcelable;
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add(getString(R.string.edit));
+        list.add(getString(R.string.delete));
+        openSimpleListDialogFragment(list, DIALOG_SIMPLE_LIST, new OnListDialogClickListener() {
+            @Override
+            public void OnListItemClick(int position, Parcelable parcelable) {
+                switch (position) {
+                    case 0:
+                        Bundle b = new Bundle();
+                        b.putParcelable(Team.TAG, mTeam);
+                        b.putParcelable(Player.TAG, player);
+                        openDialogFragment(CreatePlayerDialogFragment.newInstance(b), DIALOG_CREATE_PLAYER, PlayerManagerActivity.this);
+                        break;
+                    case 1:
+                        DatabaseHelper.getInstance(PlayerManagerActivity.this).deletePlayer(player);
+                        PlayerManagerActivity.this.list = DatabaseHelper.getInstance(PlayerManagerActivity.this).getPlayerList(mTeam._id);
+                        managerAdapter.setData(PlayerManagerActivity.this.list);
+                        break;
+                }
+            }
+        });
     }
 
     @Override
     public void OnPositiveButtonClick(String dialogTag) {
         switch (dialogTag) {
             case DialogConstant.DIALOG_CREATE_PLAYER:
-                ArrayList<Player> list = DatabaseHelper.getInstance(PlayerManagerActivity.this).getPlayerList(mTeam._id);
+                list = DatabaseHelper.getInstance(PlayerManagerActivity.this).getPlayerList(mTeam._id);
                 managerAdapter.setData(list);
                 break;
         }

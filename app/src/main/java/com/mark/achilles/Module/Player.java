@@ -11,18 +11,20 @@ import android.os.Parcelable;
 public class Player implements Parcelable {
     public static final String TAG = Player.class.getSimpleName();
 
-    public int _id = 0;
+    public int _id = -1;
     public int teamID = 0;
     public String playerName = "";
     public int playerNum = 0;
     public boolean isLeader = false;
+    public boolean isDelete = false;
 
     public Player() {
-        _id = 0;
+        _id = -1;
         teamID = 0;
         playerName = "";
         playerNum = 0;
         isLeader = false;
+        isDelete = false;
     }
 
     public Player(Cursor cursor) {
@@ -31,6 +33,7 @@ public class Player implements Parcelable {
         playerName = cursor.getString(2);
         playerNum = cursor.getInt(3);
         isLeader = cursor.getInt(4) == 1 ? true : false;
+        isDelete = cursor.getInt(5) == 1 ? true : false;
     }
 
     protected Player(Parcel in) {
@@ -39,6 +42,7 @@ public class Player implements Parcelable {
         playerName = in.readString();
         playerNum = in.readInt();
         isLeader = in.readByte() != 0;
+        isDelete = in.readByte() != 0;
     }
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
@@ -65,6 +69,7 @@ public class Player implements Parcelable {
         dest.writeString(playerName);
         dest.writeInt(playerNum);
         dest.writeByte((byte) (isLeader ? 1 : 0));
+        dest.writeByte((byte) (isDelete ? 1 : 0));
     }
 
     @Override
@@ -88,6 +93,7 @@ public class Player implements Parcelable {
                 .append(", playerName: ").append(playerName)
                 .append(", playerNum: ").append(playerNum)
                 .append(", isLeader: ").append(isLeader)
+                .append(", isDelete: ").append(isDelete)
                 .append("}");
 
         return builder.toString();

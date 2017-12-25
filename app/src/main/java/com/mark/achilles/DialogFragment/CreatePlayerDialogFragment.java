@@ -40,6 +40,7 @@ public class CreatePlayerDialogFragment extends BaseDialogFragment {
     Unbinder unbinder;
 
     private Team mTeam;
+    private Player player;
 
     public static CreatePlayerDialogFragment newInstance(Bundle bundle) {
         CreatePlayerDialogFragment fragment = new CreatePlayerDialogFragment();
@@ -58,6 +59,14 @@ public class CreatePlayerDialogFragment extends BaseDialogFragment {
         if (getArguments() != null && getArguments().containsKey(Team.TAG)) {
             mTeam = getArguments().getParcelable(Team.TAG);
         }
+        if (getArguments() != null && getArguments().containsKey(Player.TAG)) {
+            player = getArguments().getParcelable(Player.TAG);
+            etPlayerNum.setText(Integer.toString(player.playerNum));
+            etPlayerName.setText(player.playerName);
+            cbLeader.setChecked(player.isLeader);
+        } else {
+            player = new Player();
+        }
         return view;
     }
 
@@ -75,7 +84,6 @@ public class CreatePlayerDialogFragment extends BaseDialogFragment {
                 break;
             case R.id.btn_confirm:
                 if (checkData() && onDialogClickListener != null) {
-                    Player player = new Player();
                     player.teamID = mTeam._id;
                     player.playerNum = Integer.parseInt(etPlayerNum.getText().toString());
                     player.playerName = etPlayerName.getText().toString();
@@ -83,7 +91,14 @@ public class CreatePlayerDialogFragment extends BaseDialogFragment {
                         player.isLeader = true;
                     }
 
-                    DatabaseHelper.getInstance(getContext()).createPlayer(player);
+                    if (player._id == -1) {
+                        //new player
+                        DatabaseHelper.getInstance(getContext()).createPlayer(player);
+                    } else {
+                        //edit player
+                        DatabaseHelper.getInstance(getContext()).updatePlayer(player);
+                    }
+
                     onDialogClickListener.OnPositiveButtonClick(getTag());
                     dismiss();
                 }

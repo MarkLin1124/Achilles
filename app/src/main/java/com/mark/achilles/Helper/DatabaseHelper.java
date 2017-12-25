@@ -43,7 +43,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + PLAYER_TEAM_ID + " INTEGER NOT NULL , "
                 + PLAYER_NAME + " TEXT NOT NULL , "
                 + PLAYER_NUMBER + " INTEGER NOT NULL , "
-                + PLAYER_IS_LEADER + " INTEGER DEFAULT 0)");
+                + PLAYER_IS_LEADER + " INTEGER DEFAULT 0 ,"
+                + PLAYER_IS_DELETE + " INTEGER DEFAULT 0)");
     }
 
     @Override
@@ -64,8 +65,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(DatabaseConstant.PLAYER_NAME, player.playerName);
         values.put(DatabaseConstant.PLAYER_NUMBER, player.playerNum);
         values.put(DatabaseConstant.PLAYER_IS_LEADER, player.isLeader ? 1 : 0);
+        values.put(DatabaseConstant.PLAYER_IS_DELETE, player.isDelete ? 1 : 0);
 
         getWritableDatabase().insert(DatabaseConstant.TABLE_PLAYER, null, values);
+    }
+
+    public void updatePlayer(Player player) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstant.PLAYER_TEAM_ID, player.teamID);
+        values.put(DatabaseConstant.PLAYER_NAME, player.playerName);
+        values.put(DatabaseConstant.PLAYER_NUMBER, player.playerNum);
+        values.put(DatabaseConstant.PLAYER_IS_LEADER, player.isLeader ? 1 : 0);
+        values.put(DatabaseConstant.PLAYER_IS_DELETE, player.isDelete ? 1 : 0);
+
+        getWritableDatabase().update(DatabaseConstant.TABLE_PLAYER, values, "_id=?", new String[]{Integer.toString(player._id)});
+    }
+
+    public void deletePlayer(Player player) {
+        player.isDelete = true;
+        updatePlayer(player);
     }
 
     public ArrayList<Team> getTeamList() {
@@ -85,7 +103,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().query(TABLE_PLAYER, null, PLAYER_TEAM_ID + "=?", new String[]{Integer.toString(teamID)}, null, null, null, null);
 
         while (cursor.moveToNext()) {
-            list.add(new Player(cursor));
+            Player player = new Player(cursor);
+            if (!player.isDelete) {
+                list.add(player);
+            }
         }
 
         cursor.close();
