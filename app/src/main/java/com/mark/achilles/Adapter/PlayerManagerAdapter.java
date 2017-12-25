@@ -58,12 +58,7 @@ public class PlayerManagerAdapter extends RecyclerView.Adapter<PlayerManagerList
 
     public void setData(ArrayList<Player> list) {
         this.list.clear();
-//        this.list = list;
-
-        Player player = new Player();
-        player.playerName = "test123";
-        player.playerNum = 99;
-        this.list.add(player);
+        this.list = list;
 
         notifyDataSetChanged();
     }

@@ -1,5 +1,6 @@
 package com.mark.achilles.Module;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -14,14 +15,22 @@ public class Player implements Parcelable {
     public int teamID = 0;
     public String playerName = "";
     public int playerNum = 0;
-    public int isLeader = 0;
+    public boolean isLeader = false;
 
     public Player() {
         _id = 0;
         teamID = 0;
         playerName = "";
         playerNum = 0;
-        isLeader = 0;
+        isLeader = false;
+    }
+
+    public Player(Cursor cursor) {
+        _id = cursor.getInt(0);
+        teamID = cursor.getInt(1);
+        playerName = cursor.getString(2);
+        playerNum = cursor.getInt(3);
+        isLeader = cursor.getInt(4) == 1 ? true : false;
     }
 
     protected Player(Parcel in) {
@@ -29,7 +38,7 @@ public class Player implements Parcelable {
         teamID = in.readInt();
         playerName = in.readString();
         playerNum = in.readInt();
-        isLeader = in.readInt();
+        isLeader = in.readByte() != 0;
     }
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
@@ -55,7 +64,7 @@ public class Player implements Parcelable {
         dest.writeInt(teamID);
         dest.writeString(playerName);
         dest.writeInt(playerNum);
-        dest.writeInt(isLeader);
+        dest.writeByte((byte) (isLeader ? 1 : 0));
     }
 
     @Override

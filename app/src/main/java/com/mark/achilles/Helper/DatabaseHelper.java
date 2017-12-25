@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.mark.achilles.Constant.DatabaseConstant;
+import com.mark.achilles.Module.Player;
 import com.mark.achilles.Module.Team;
 
 import java.util.ArrayList;
@@ -37,6 +38,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_TEAM + " (_id INTEGER PRIMARY KEY NOT NULL , " + TEAM_NAME + " TEXT NOT NULL , " + TEAM_CODE + " INTEGER NOT NULL)");
+        db.execSQL("CREATE TABLE " + TABLE_PLAYER
+                + " (_id INTEGER PRIMARY KEY NOT NULL , "
+                + PLAYER_TEAM_ID + " INTEGER NOT NULL , "
+                + PLAYER_NAME + " TEXT NOT NULL , "
+                + PLAYER_NUMBER + " INTEGER NOT NULL , "
+                + PLAYER_IS_LEADER + " INTEGER DEFAULT 0)");
     }
 
     @Override
@@ -51,12 +58,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().insert(DatabaseConstant.TABLE_TEAM, null, values);
     }
 
+    public void createPlayer(Player player) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstant.PLAYER_TEAM_ID, player.teamID);
+        values.put(DatabaseConstant.PLAYER_NAME, player.playerName);
+        values.put(DatabaseConstant.PLAYER_NUMBER, player.playerNum);
+        values.put(DatabaseConstant.PLAYER_IS_LEADER, player.isLeader ? 1 : 0);
+
+        getWritableDatabase().insert(DatabaseConstant.TABLE_PLAYER, null, values);
+    }
+
     public ArrayList<Team> getTeamList() {
         ArrayList<Team> list = new ArrayList<>();
         Cursor cursor = getReadableDatabase().query(TABLE_TEAM, null, null, null, null, null, null, null);
 
         while (cursor.moveToNext()) {
             list.add(new Team(cursor));
+        }
+
+        cursor.close();
+        return list;
+    }
+
+    public ArrayList<Player> getPlayerList(int teamID) {
+        ArrayList<Player> list = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().query(TABLE_PLAYER, null, PLAYER_TEAM_ID + "=?", new String[]{Integer.toString(teamID)}, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            list.add(new Player(cursor));
         }
 
         cursor.close();

@@ -18,4 +18,11 @@
     <string name="create_team_code_hint">四碼數字</string>
     <string name="create_team_name_empty">球隊名稱不得為空</string>
     <string name="create_team_code_empty">請輸入四位數字的球隊密碼</string>
+
+    <!-- create player dialog -->
+    <string name="create_player_number">背號</string>
+    <string name="create_player_name">名字</string>
+    <string name="create_player_leader">隊長</string>
+    <string name="create_player_number_empty">球員背號不得為空</string>
+    <string name="create_player_name_empty">球員名稱不得為空</string>
 </resources>
