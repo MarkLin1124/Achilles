@@ -1,6 +1,5 @@
 package com.mark.achilles.DialogFragment;
 
-import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -11,9 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.mark.achilles.Constant.DatabaseConstant;
 import com.mark.achilles.Helper.DatabaseHelper;
-import com.mark.achilles.Module.Team;
 import com.mark.achilles.R;
 
 import butterknife.BindView;

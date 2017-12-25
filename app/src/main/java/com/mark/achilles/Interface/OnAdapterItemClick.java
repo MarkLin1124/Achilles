@@ -8,4 +8,6 @@ import android.os.Parcelable;
 
 public interface OnAdapterItemClick {
     void onItemClick(Parcelable parcelable);
+
+    void onItemLongClick(Parcelable parcelable);
 }
