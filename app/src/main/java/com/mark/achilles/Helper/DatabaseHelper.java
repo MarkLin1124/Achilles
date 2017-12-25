@@ -79,6 +79,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().insert(DatabaseConstant.TABLE_PLAYER, null, values);
     }
 
+    public void createGameInfo(GameInfo gameInfo) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstant.GAME_INFO_DATE, gameInfo.gameDate);
+        values.put(DatabaseConstant.GAME_INFO_NAME, gameInfo.gameName);
+        values.put(DatabaseConstant.GAME_INFO_TEAM, gameInfo.gameTeam);
+        values.put(DatabaseConstant.GAME_INFO_COURT, gameInfo.gameCourt);
+        values.put(DatabaseConstant.GAME_INFO_ENEMY_NAME, gameInfo.enemyName);
+        values.put(DatabaseConstant.GAME_INFO_IS_DELETE, gameInfo.isDelete ? 1 : 0);
+
+        getWritableDatabase().insert(DatabaseConstant.TABLE_GAME_INFO, null, values);
+    }
+
     public void updatePlayer(Player player) {
         ContentValues values = new ContentValues();
         values.put(DatabaseConstant.PLAYER_TEAM_ID, player.teamID);
@@ -90,9 +102,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().update(DatabaseConstant.TABLE_PLAYER, values, "_id=?", new String[]{Integer.toString(player._id)});
     }
 
+    public void updateGameInfo(GameInfo gameInfo) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstant.GAME_INFO_DATE, gameInfo.gameDate);
+        values.put(DatabaseConstant.GAME_INFO_NAME, gameInfo.gameName);
+        values.put(DatabaseConstant.GAME_INFO_TEAM, gameInfo.gameTeam);
+        values.put(DatabaseConstant.GAME_INFO_COURT, gameInfo.gameCourt);
+        values.put(DatabaseConstant.GAME_INFO_ENEMY_NAME, gameInfo.enemyName);
+        values.put(DatabaseConstant.GAME_INFO_IS_DELETE, gameInfo.isDelete ? 1 : 0);
+
+        getWritableDatabase().update(DatabaseConstant.TABLE_GAME_INFO, values, "_id=?", new String[]{Integer.toString(gameInfo._id)});
+    }
+
     public void deletePlayer(Player player) {
         player.isDelete = true;
         updatePlayer(player);
+    }
+
+    public void deleteGameInfo(GameInfo gameInfo) {
+        gameInfo.isDelete = true;
+        updateGameInfo(gameInfo);
     }
 
     public ArrayList<Team> getTeamList() {

@@ -39,4 +39,5 @@
     <!-- game list activity -->
     <string name="game_list_title">記錄比賽</string>
     <string name="game_list_name_constant">賽事名稱</string>
+    <string name="game_list_name">%1$s vs %2$s</string>
 </resources>
