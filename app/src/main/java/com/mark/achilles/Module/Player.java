@@ -18,6 +18,9 @@ public class Player implements Parcelable {
     public boolean isLeader = false;
     public boolean isDelete = false;
 
+    //local boolean to check if player is starter
+    public boolean starter = false;
+
     public Player() {
         _id = -1;
         teamID = 0;

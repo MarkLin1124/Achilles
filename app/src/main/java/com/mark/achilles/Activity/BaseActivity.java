@@ -10,7 +10,6 @@ import com.mark.achilles.DialogFragment.SimpleDialogFragment;
 import com.mark.achilles.DialogFragment.SimpleListDialogFragment;
 import com.mark.achilles.Interface.OnDialogClickListener;
 import com.mark.achilles.Interface.OnListDialogClickListener;
-import com.mark.achilles.R;
 
 import java.util.ArrayList;
 

@@ -50,4 +50,11 @@
     <string name="create_game_name_empty">比賽名稱不得為空</string>
     <string name="create_game_enemy_empty">比賽對手不得為空</string>
     <string name="create_game_court_empty">比賽場地不得為空</string>
+    <string name="delete_game_title">刪除比賽紀錄?</string>
+    <string name="delete_game_content">是否要刪除該比賽紀錄?</string>
+
+    <!-- select starter activity -->
+    <string name="select_starter_title">先發陣容</string>
+    <string name="select_starter_player_name_constant">球員名稱</string>
+    <string name="select_starter_name">#%1$d %2$s</string>
 </resources>

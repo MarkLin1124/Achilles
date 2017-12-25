@@ -1,5 +1,6 @@
 package com.mark.achilles.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -63,13 +64,17 @@ public class GameListActivity extends BaseActivity implements OnAdapterItemClick
 
     @Override
     public void onItemClick(Parcelable parcelable) {
-
+        GameInfo gameInfo = (GameInfo) parcelable;
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(Team.TAG, mTeam);
+        bundle.putParcelable(GameInfo.TAG, gameInfo);
+        startActivity(new Intent().setClass(GameListActivity.this, SelectStarterActivity.class).putExtras(bundle));
     }
 
     @Override
     public void onItemLongClick(Parcelable parcelable) {
         final GameInfo gameInfo = (GameInfo) parcelable;
-        openSimpleDialogFragment("刪除比賽紀錄?", "是否要刪除該比賽紀錄?", "", new OnDialogClickListener() {
+        openSimpleDialogFragment(getString(R.string.delete_game_title), getString(R.string.delete_game_content), "", new OnDialogClickListener() {
             @Override
             public void OnPositiveButtonClick(String dialogTag) {
                 DatabaseHelper.getInstance(GameListActivity.this).deleteGameInfo(gameInfo);
