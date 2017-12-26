@@ -16,6 +16,7 @@ import com.mark.achilles.Adapter.HistoryListAdapter;
 import com.mark.achilles.Constant.DialogConstant;
 import com.mark.achilles.DialogFragment.SelectPlayerDialogFragment;
 import com.mark.achilles.Helper.DatabaseHelper;
+import com.mark.achilles.Interface.OnAdapterItemClick;
 import com.mark.achilles.Interface.OnDialogClickListener;
 import com.mark.achilles.Interface.OnListDialogClickListener;
 import com.mark.achilles.Module.BoxScore;
@@ -32,7 +33,7 @@ import butterknife.OnClick;
 import static com.mark.achilles.Constant.ActionConstant.*;
 import static com.mark.achilles.Constant.Constant.ENEMY;
 
-public class MainActivity extends BaseActivity implements OnDialogClickListener {
+public class MainActivity extends BaseActivity implements OnDialogClickListener, OnAdapterItemClick {
     public static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.btn_two_point_made)
     ImageButton btnTwoPointMade;
@@ -96,6 +97,7 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
 
         historyListAdapter = new HistoryListAdapter(MainActivity.this, mGameInfo);
         recyclerviewHistory.setAdapter(historyListAdapter);
+        historyListAdapter.setOnAdapterItemClick(this);
         historyListAdapter.refreshHistory();
         recyclerviewHistory.smoothScrollToPosition(0);
 
@@ -230,6 +232,42 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
         refreshBox();
     }
 
+    public void removeBox(BoxScore boxScore, int action) {
+        if (boxScore.playerID == ENEMY) {
+            switch (action) {
+                case TWO_POINT_MADE:
+                    mGameInfo.enemyScore = mGameInfo.enemyScore - 2;
+                    break;
+                case THREE_POINT_MADE:
+                    mGameInfo.enemyScore = mGameInfo.enemyScore - 3;
+                    break;
+                case FREE_THROW_MADE:
+                    mGameInfo.enemyScore = mGameInfo.enemyScore - 1;
+                    break;
+                case FOUL:
+                    mGameInfo.enemyTeamFoul = mGameInfo.enemyTeamFoul - 1;
+                    break;
+            }
+        } else {
+            switch (action) {
+                case TWO_POINT_MADE:
+                    mGameInfo.userScore = mGameInfo.userScore - 2;
+                    break;
+                case THREE_POINT_MADE:
+                    mGameInfo.userScore = mGameInfo.userScore - 3;
+                    break;
+                case FREE_THROW_MADE:
+                    mGameInfo.userScore = mGameInfo.userScore - 1;
+                    break;
+                case FOUL:
+                    mGameInfo.userTeamFoul = mGameInfo.userTeamFoul - 1;
+                    break;
+            }
+        }
+
+        refreshBox();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -292,5 +330,32 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
     @Override
     public void OnNegativeButtonClick(String dialogTag) {
 
+    }
+
+    @Override
+    public void onItemClick(Parcelable parcelable) {
+
+    }
+
+    @Override
+    public void onItemLongClick(Parcelable parcelable) {
+        final History history = (History) parcelable;
+
+        openSimpleDialogFragment(getString(R.string.delete), getString(R.string.history_delete_hint), "", new OnDialogClickListener() {
+            @Override
+            public void OnPositiveButtonClick(String dialogTag) {
+                BoxScore boxScore = DatabaseHelper.getInstance(MainActivity.this).getBoxScore(history.boxScoreId);
+                DatabaseHelper.getInstance(MainActivity.this).updateBoxScore(boxScore.remove(history.action), history.action);
+                DatabaseHelper.getInstance(MainActivity.this).deleteHistory(history);
+                removeBox(boxScore, history.action);
+
+                historyListAdapter.refreshHistory();
+            }
+
+            @Override
+            public void OnNegativeButtonClick(String dialogTag) {
+
+            }
+        });
     }
 }
