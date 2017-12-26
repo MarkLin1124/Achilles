@@ -61,13 +61,7 @@ public class SelectStarterListAdapter extends RecyclerView.Adapter<SelectStarter
         notifyDataSetChanged();
     }
 
-    public ArrayList<Player> getSelectPlayerList() {
-        ArrayList<Player> starterList = new ArrayList<>();
-        for (Player player : mList) {
-            if (player.starter) {
-                starterList.add(player);
-            }
-        }
-        return starterList;
+    public ArrayList<Player> getPlayerList() {
+        return mList;
     }
 }

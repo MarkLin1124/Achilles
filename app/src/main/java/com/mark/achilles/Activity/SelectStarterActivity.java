@@ -1,5 +1,6 @@
 package com.mark.achilles.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +8,15 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.mark.achilles.Adapter.SelectStarterListAdapter;
+import com.mark.achilles.Constant.Constant;
 import com.mark.achilles.Helper.DatabaseHelper;
+import com.mark.achilles.Module.BoxScore;
 import com.mark.achilles.Module.GameInfo;
+import com.mark.achilles.Module.Player;
 import com.mark.achilles.Module.Team;
 import com.mark.achilles.R;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,10 +60,37 @@ public class SelectStarterActivity extends BaseActivity {
 
     @OnClick(R.id.btn_start)
     public void onViewClicked() {
-        if (selectStarterListAdapter.getSelectPlayerList().size() == 5) {
+        if (getSelectPlayerList().size() == 5) {
+            for (Player player : selectStarterListAdapter.getPlayerList()) {
+                DatabaseHelper.getInstance(SelectStarterActivity.this).createBoxScore(createBoxScore(player));
+            }
+            ArrayList<BoxScore> boxList = DatabaseHelper.getInstance(SelectStarterActivity.this).getBoxScoreList(mGameInfo._id);
 
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(GameInfo.TAG, mGameInfo);
+            bundle.putSerializable(Constant.LIST, boxList);
+            startActivity(new Intent().setClass(SelectStarterActivity.this, MainActivity.class).putExtras(bundle));
         } else {
             Toast.makeText(SelectStarterActivity.this, getString(R.string.select_starter_player_hint), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private BoxScore createBoxScore(Player player) {
+        BoxScore boxScore = new BoxScore();
+        boxScore.playerID = player._id;
+        boxScore.gameID = mGameInfo._id;
+        boxScore.onCourt = player.starter;
+
+        return boxScore;
+    }
+
+    private ArrayList<Player> getSelectPlayerList() {
+        ArrayList<Player> starterList = new ArrayList<>();
+        for (Player player : selectStarterListAdapter.getPlayerList()) {
+            if (player.starter) {
+                starterList.add(player);
+            }
+        }
+        return starterList;
     }
 }

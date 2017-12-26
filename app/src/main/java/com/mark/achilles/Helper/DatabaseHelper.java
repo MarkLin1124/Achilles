@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.mark.achilles.Constant.DatabaseConstant;
+import com.mark.achilles.Module.BoxScore;
 import com.mark.achilles.Module.GameInfo;
 import com.mark.achilles.Module.Player;
 import com.mark.achilles.Module.Team;
@@ -54,6 +55,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + GAME_INFO_COURT + " TEXT NOT NULL , "
                 + GAME_INFO_ENEMY_NAME + " TEXT NOT NULL , "
                 + GAME_INFO_IS_DELETE + " INTEGER DEFAULT 0)");
+        db.execSQL("CREATE TABLE " + TABLE_BOX_SCORE
+                + " (_id INTEGER PRIMARY KEY NOT NULL , "
+                + BOX_PLAYER_ID + " INTEGER NOT NULL , "
+                + BOX_GAME_ID + " INTEGER NOT NULL , "
+                + BOX_TWO_POINT_MADE + " INTEGER NOT NULL , "
+                + BOX_TWO_POINT_MISS + " INTEGER NOT NULL , "
+                + BOX_THREE_POINT_MADE + " INTEGER NOT NULL , "
+                + BOX_THREE_POINT_MISS + " INTEGER NOT NULL , "
+                + BOX_FREE_THROW_MADE + " INTEGER NOT NULL , "
+                + BOX_FREE_THROW_MISS + " INTEGER NOT NULL , "
+                + BOX_OFF_REBOUND + " INTEGER NOT NULL , "
+                + BOX_DEF_REBOUND + " INTEGER NOT NULL , "
+                + BOX_ASSIST + " INTEGER NOT NULL , "
+                + BOX_STEAL + " INTEGER NOT NULL , "
+                + BOX_BLOCK + " INTEGER NOT NULL , "
+                + BOX_TURNOVER + " INTEGER NOT NULL , "
+                + BOX_PERSONAL_FOUL + " INTEGER NOT NULL , "
+                + BOX_ON_COURT + " INTEGER DEFAULT 0)");
     }
 
     @Override
@@ -90,6 +109,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         getWritableDatabase().insert(DatabaseConstant.TABLE_GAME_INFO, null, values);
     }
+
+    public void createBoxScore(BoxScore boxScore) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstant.BOX_PLAYER_ID, boxScore.playerID);
+        values.put(DatabaseConstant.BOX_GAME_ID, boxScore.gameID);
+        values.put(DatabaseConstant.BOX_TWO_POINT_MADE, boxScore.twoPointMade);
+        values.put(DatabaseConstant.BOX_TWO_POINT_MISS, boxScore.twoPointMiss);
+        values.put(DatabaseConstant.BOX_THREE_POINT_MADE, boxScore.threePointMade);
+        values.put(DatabaseConstant.BOX_THREE_POINT_MISS, boxScore.threePointMiss);
+        values.put(DatabaseConstant.BOX_FREE_THROW_MADE, boxScore.freeThrowMade);
+        values.put(DatabaseConstant.BOX_FREE_THROW_MISS, boxScore.freeThrowMiss);
+        values.put(DatabaseConstant.BOX_OFF_REBOUND, boxScore.offRebound);
+        values.put(DatabaseConstant.BOX_DEF_REBOUND, boxScore.defRebound);
+        values.put(DatabaseConstant.BOX_ASSIST, boxScore.assist);
+        values.put(DatabaseConstant.BOX_STEAL, boxScore.steal);
+        values.put(DatabaseConstant.BOX_BLOCK, boxScore.block);
+        values.put(DatabaseConstant.BOX_TURNOVER, boxScore.turnover);
+        values.put(DatabaseConstant.BOX_PERSONAL_FOUL, boxScore.personalFoul);
+        values.put(DatabaseConstant.BOX_ON_COURT, boxScore.onCourt ? 1 : 0);
+
+        getWritableDatabase().insert(DatabaseConstant.TABLE_BOX_SCORE, null, values);
+    }
+
 
     public void updatePlayer(Player player) {
         ContentValues values = new ContentValues();
@@ -153,13 +195,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<GameInfo> getGameInfoList(int teamID) {
         ArrayList<GameInfo> list = new ArrayList<>();
-        Cursor cursor = getReadableDatabase().query(TABLE_GAME_INFO, null, GAME_INFO_TEAM + "=?", new String[]{Integer.toString(teamID)}, null, null,"_id DESC", null);
+        Cursor cursor = getReadableDatabase().query(TABLE_GAME_INFO, null, GAME_INFO_TEAM + "=?", new String[]{Integer.toString(teamID)}, null, null, "_id DESC", null);
 
         while (cursor.moveToNext()) {
             GameInfo gameInfo = new GameInfo(cursor);
             if (!gameInfo.isDelete) {
                 list.add(gameInfo);
             }
+        }
+
+        cursor.close();
+        return list;
+    }
+
+    public ArrayList<BoxScore> getBoxScoreList(int gameID) {
+        ArrayList<BoxScore> list = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().query(TABLE_BOX_SCORE, null, BOX_GAME_ID + "=?", new String[]{Integer.toString(gameID)}, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            BoxScore boxScore = new BoxScore(cursor);
+            list.add(boxScore);
         }
 
         cursor.close();

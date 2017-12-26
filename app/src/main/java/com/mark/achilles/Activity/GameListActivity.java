@@ -8,11 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageButton;
 
 import com.mark.achilles.Adapter.GameListAdapter;
+import com.mark.achilles.Constant.Constant;
 import com.mark.achilles.Constant.DialogConstant;
 import com.mark.achilles.DialogFragment.CreateGameDialogFragment;
 import com.mark.achilles.Helper.DatabaseHelper;
 import com.mark.achilles.Interface.OnAdapterItemClick;
 import com.mark.achilles.Interface.OnDialogClickListener;
+import com.mark.achilles.Module.BoxScore;
 import com.mark.achilles.Module.GameInfo;
 import com.mark.achilles.Module.Team;
 import com.mark.achilles.R;
@@ -65,10 +67,20 @@ public class GameListActivity extends BaseActivity implements OnAdapterItemClick
     @Override
     public void onItemClick(Parcelable parcelable) {
         GameInfo gameInfo = (GameInfo) parcelable;
+
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Team.TAG, mTeam);
         bundle.putParcelable(GameInfo.TAG, gameInfo);
-        startActivity(new Intent().setClass(GameListActivity.this, SelectStarterActivity.class).putExtras(bundle));
+
+        if (DatabaseHelper.getInstance(GameListActivity.this).getBoxScoreList(gameInfo._id).size() == 0) {
+            //new game and select starter
+            bundle.putParcelable(Team.TAG, mTeam);
+            startActivity(new Intent().setClass(GameListActivity.this, SelectStarterActivity.class).putExtras(bundle));
+        } else {
+            //resume game
+            ArrayList<BoxScore> boxList = DatabaseHelper.getInstance(GameListActivity.this).getBoxScoreList(gameInfo._id);
+            bundle.putSerializable(Constant.LIST, boxList);
+            startActivity(new Intent().setClass(GameListActivity.this, MainActivity.class).putExtras(bundle));
+        }
     }
 
     @Override
