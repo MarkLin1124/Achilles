@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.mark.achilles.Constant.ActionConstant.*;
+import static com.mark.achilles.Constant.Constant.ENEMY;
 
 public class MainActivity extends BaseActivity implements OnDialogClickListener {
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -92,6 +93,8 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
                 mGameInfo = getIntent().getExtras().getParcelable(GameInfo.TAG);
             }
         }
+
+        refreshBox();
     }
 
 
@@ -128,6 +131,9 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
             case R.id.btn_change_ball:
                 break;
             case R.id.btn_reset_foul:
+                mGameInfo.userTeamFoul = 0;
+                mGameInfo.enemyTeamFoul = 0;
+                refreshBox();
                 break;
             case R.id.btn_block:
                 addAction(BLOCK);
@@ -160,10 +166,55 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
             @Override
             public void OnListItemClick(int position, Parcelable parcelable) {
                 BoxScore boxScore = (BoxScore) parcelable;
-                boxScore.add(action);
-                DatabaseHelper.getInstance(MainActivity.this).updateBoxScore(boxScore, action);
+                DatabaseHelper.getInstance(MainActivity.this).updateBoxScore(boxScore.add(action), action);
+                refreshBox(boxScore, action);
             }
         });
+    }
+
+    public void refreshBox() {
+        tvUserScore.setText(Integer.toString(mGameInfo.userScore));
+        tvUserTeamFoul.setText(Integer.toString(mGameInfo.userTeamFoul));
+        tvEnemyScore.setText(Integer.toString(mGameInfo.enemyScore));
+        tvEnemyTeamFoul.setText(Integer.toString(mGameInfo.enemyTeamFoul));
+
+        DatabaseHelper.getInstance(MainActivity.this).updateGameInfo(mGameInfo);
+    }
+
+    public void refreshBox(BoxScore boxScore, int action) {
+        if (boxScore.playerID == ENEMY) {
+            switch (action) {
+                case TWO_POINT_MADE:
+                    mGameInfo.enemyScore = mGameInfo.enemyScore + 2;
+                    break;
+                case THREE_POINT_MADE:
+                    mGameInfo.enemyScore = mGameInfo.enemyScore + 3;
+                    break;
+                case FREE_THROW_MADE:
+                    mGameInfo.enemyScore = mGameInfo.enemyScore + 1;
+                    break;
+                case FOUL:
+                    mGameInfo.enemyTeamFoul = mGameInfo.enemyTeamFoul + 1;
+                    break;
+            }
+        } else {
+            switch (action) {
+                case TWO_POINT_MADE:
+                    mGameInfo.userScore = mGameInfo.userScore + 2;
+                    break;
+                case THREE_POINT_MADE:
+                    mGameInfo.userScore = mGameInfo.userScore + 3;
+                    break;
+                case FREE_THROW_MADE:
+                    mGameInfo.userScore = mGameInfo.userScore + 1;
+                    break;
+                case FOUL:
+                    mGameInfo.userTeamFoul = mGameInfo.userTeamFoul + 1;
+                    break;
+            }
+        }
+
+        refreshBox();
     }
 
     @Override

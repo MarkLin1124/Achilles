@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mark.achilles.Constant.Constant;
 import com.mark.achilles.DialogFragment.SelectPlayerDialogFragment;
 import com.mark.achilles.Helper.DatabaseHelper;
 import com.mark.achilles.Interface.OnListDialogClickListener;
@@ -40,8 +41,12 @@ public class SelectPlayerAdapter extends RecyclerView.Adapter<SelectPlayerAdapte
 
     @Override
     public void onBindViewHolder(SelectPlayerAdapter.SimpleListHolder holder, final int position) {
-        Player player = DatabaseHelper.getInstance(dialogFragment.getContext()).getPlayer(mList.get(position).playerID);
-        holder.tvItem.setText(String.format(dialogFragment.getContext().getResources().getString(R.string.select_starter_name), player.playerNum, player.playerName));
+        if(mList.get(position).playerID == Constant.ENEMY){
+            holder.tvItem.setText(dialogFragment.getContext().getText(R.string.enemy_box));
+        }else{
+            Player player = DatabaseHelper.getInstance(dialogFragment.getContext()).getPlayer(mList.get(position).playerID);
+            holder.tvItem.setText(String.format(dialogFragment.getContext().getResources().getString(R.string.select_starter_name), player.playerNum, player.playerName));
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

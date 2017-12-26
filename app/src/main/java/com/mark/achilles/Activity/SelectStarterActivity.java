@@ -64,6 +64,7 @@ public class SelectStarterActivity extends BaseActivity {
             for (Player player : selectStarterListAdapter.getPlayerList()) {
                 DatabaseHelper.getInstance(SelectStarterActivity.this).createBoxScore(createBoxScore(player));
             }
+            DatabaseHelper.getInstance(SelectStarterActivity.this).createBoxScore(createEnemy());
             ArrayList<BoxScore> boxList = DatabaseHelper.getInstance(SelectStarterActivity.this).getBoxScoreList(mGameInfo._id);
 
             Bundle bundle = new Bundle();
@@ -80,6 +81,15 @@ public class SelectStarterActivity extends BaseActivity {
         boxScore.playerID = player._id;
         boxScore.gameID = mGameInfo._id;
         boxScore.onCourt = player.starter;
+
+        return boxScore;
+    }
+
+    private BoxScore createEnemy() {
+        BoxScore boxScore = new BoxScore();
+        boxScore.playerID = Constant.ENEMY;
+        boxScore.gameID = mGameInfo._id;
+        boxScore.onCourt = true;
 
         return boxScore;
     }

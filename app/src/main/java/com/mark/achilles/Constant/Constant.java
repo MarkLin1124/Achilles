@@ -8,4 +8,6 @@ public class Constant {
     public static final String LIST = "list";
     public static final String TITLE = "title";
     public static final String CONTENT = "content";
+
+    public static final int ENEMY = -2;
 }
