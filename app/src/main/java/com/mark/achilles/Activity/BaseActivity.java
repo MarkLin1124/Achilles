@@ -33,6 +33,14 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    protected void openListDialogFragment(BaseDialogFragment fragment, String tag, OnListDialogClickListener listDialogClickListener) {
+        fragment.show(getSupportFragmentManager(), tag);
+
+        if (listDialogClickListener != null) {
+            fragment.setonListDialogClickListener(listDialogClickListener);
+        }
+    }
+
     protected void openSimpleListDialogFragment(ArrayList<String> list, String tag, OnListDialogClickListener onListDialogClickListener) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constant.LIST, list);

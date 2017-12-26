@@ -15,6 +15,7 @@ import com.mark.achilles.Module.Team;
 
 import java.util.ArrayList;
 
+import static com.mark.achilles.Constant.ActionConstant.*;
 import static com.mark.achilles.Constant.DatabaseConstant.*;
 
 /**
@@ -55,6 +56,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + GAME_INFO_TEAM + " INTEGER NOT NULL , "
                 + GAME_INFO_COURT + " TEXT NOT NULL , "
                 + GAME_INFO_ENEMY_NAME + " TEXT NOT NULL , "
+                + GAME_INFO_USER_SCORE + " TEXT NOT NULL , "
+                + GAME_INFO_USER_TEAM_FOUL + " TEXT NOT NULL , "
+                + GAME_INFO_ENEMY_SCORE + " TEXT NOT NULL , "
+                + GAME_INFO_ENEMY_TEAM_FOUL + " TEXT NOT NULL , "
                 + GAME_INFO_IS_DELETE + " INTEGER DEFAULT 0)");
         db.execSQL("CREATE TABLE " + TABLE_BOX_SCORE
                 + " (_id INTEGER PRIMARY KEY NOT NULL , "
@@ -180,6 +185,53 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().update(DatabaseConstant.TABLE_GAME_INFO, values, "_id=?", new String[]{Integer.toString(gameInfo._id)});
     }
 
+    public void updateBoxScore(BoxScore boxScore, int action) {
+        ContentValues values = new ContentValues();
+        switch (action) {
+            case TWO_POINT_MADE:
+                values.put(DatabaseConstant.BOX_TWO_POINT_MADE, boxScore.twoPointMade);
+                break;
+            case TWO_POINT_MISS:
+                values.put(DatabaseConstant.BOX_TWO_POINT_MISS, boxScore.twoPointMiss);
+                break;
+            case THREE_POINT_MADE:
+                values.put(DatabaseConstant.BOX_THREE_POINT_MADE, boxScore.threePointMade);
+                break;
+            case THREE_POINT_MISS:
+                values.put(DatabaseConstant.BOX_THREE_POINT_MISS, boxScore.threePointMiss);
+                break;
+            case FREE_THROW_MADE:
+                values.put(DatabaseConstant.BOX_FREE_THROW_MADE, boxScore.freeThrowMade);
+                break;
+            case FREE_THROW_MISS:
+                values.put(DatabaseConstant.BOX_FREE_THROW_MISS, boxScore.freeThrowMiss);
+                break;
+            case OFF_REBOUND:
+                values.put(DatabaseConstant.BOX_OFF_REBOUND, boxScore.offRebound);
+                break;
+            case DEF_REBOUND:
+                values.put(DatabaseConstant.BOX_DEF_REBOUND, boxScore.defRebound);
+                break;
+            case ASSIST:
+                values.put(DatabaseConstant.BOX_ASSIST, boxScore.assist);
+                break;
+            case BLOCK:
+                values.put(DatabaseConstant.BOX_BLOCK, boxScore.block);
+                break;
+            case STEAL:
+                values.put(DatabaseConstant.BOX_STEAL, boxScore.steal);
+                break;
+            case FOUL:
+                values.put(DatabaseConstant.BOX_PERSONAL_FOUL, boxScore.personalFoul);
+                break;
+            case TURNOVER:
+                values.put(DatabaseConstant.BOX_TURNOVER, boxScore.turnover);
+                break;
+        }
+
+        getWritableDatabase().update(DatabaseConstant.TABLE_BOX_SCORE, values, "_id=?", new String[]{Integer.toString(boxScore._id)});
+    }
+
     public void deletePlayer(Player player) {
         player.isDelete = true;
         updatePlayer(player);
@@ -245,6 +297,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return list;
     }
 
+    public ArrayList<BoxScore> getOnCourtBoxScore(int gameID) {
+        ArrayList<BoxScore> list = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().query(TABLE_BOX_SCORE, null, BOX_GAME_ID + "=? and " + BOX_ON_COURT + "=?", new String[]{Integer.toString(gameID), Integer.toString(1)}, null, null, null, null);
+
+        while (cursor.moveToNext()) {
+            BoxScore boxScore = new BoxScore(cursor);
+            list.add(boxScore);
+        }
+
+        cursor.close();
+        return list;
+    }
+
     public ArrayList<History> getHistoryList(int gameID) {
         ArrayList<History> list = new ArrayList<>();
         Cursor cursor = getReadableDatabase().query(TABLE_HISTORY, null, HISTORY_GAME_ID + "=?", new String[]{Integer.toString(gameID)}, null, null, "_id DESC", null);
@@ -258,5 +323,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         cursor.close();
         return list;
+    }
+
+    public Player getPlayer(int playerId) {
+        Player player = null;
+        Cursor cursor = getReadableDatabase().query(TABLE_PLAYER, null, "_id=?", new String[]{Integer.toString(playerId)}, null, null, null, null);
+        while (cursor.moveToNext()) {
+            player = new Player(cursor);
+        }
+
+        return player;
     }
 }

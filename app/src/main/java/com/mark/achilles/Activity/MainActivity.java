@@ -2,7 +2,9 @@ package com.mark.achilles.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,8 +14,10 @@ import android.widget.TextView;
 
 import com.mark.achilles.Constant.Constant;
 import com.mark.achilles.Constant.DialogConstant;
+import com.mark.achilles.DialogFragment.SelectPlayerDialogFragment;
 import com.mark.achilles.Helper.DatabaseHelper;
 import com.mark.achilles.Interface.OnDialogClickListener;
+import com.mark.achilles.Interface.OnListDialogClickListener;
 import com.mark.achilles.Module.BoxScore;
 import com.mark.achilles.Module.GameInfo;
 import com.mark.achilles.R;
@@ -149,7 +153,17 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
         }
     }
 
-    private void addAction(int action) {
+    private void addAction(final int action) {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(GameInfo.TAG, mGameInfo);
+        openListDialogFragment(SelectPlayerDialogFragment.newInstance(bundle), "", new OnListDialogClickListener() {
+            @Override
+            public void OnListItemClick(int position, Parcelable parcelable) {
+                BoxScore boxScore = (BoxScore) parcelable;
+                boxScore.add(action);
+                DatabaseHelper.getInstance(MainActivity.this).updateBoxScore(boxScore, action);
+            }
+        });
     }
 
     @Override
