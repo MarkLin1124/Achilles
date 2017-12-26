@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.mark.achilles.Adapter.SelectStarterListAdapter;
 import com.mark.achilles.Helper.DatabaseHelper;
@@ -53,5 +54,10 @@ public class SelectStarterActivity extends BaseActivity {
 
     @OnClick(R.id.btn_start)
     public void onViewClicked() {
+        if (selectStarterListAdapter.getSelectPlayerList().size() == 5) {
+
+        } else {
+            Toast.makeText(SelectStarterActivity.this, getString(R.string.select_starter_player_hint), Toast.LENGTH_SHORT).show();
+        }
     }
 }

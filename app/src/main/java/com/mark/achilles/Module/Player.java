@@ -28,6 +28,7 @@ public class Player implements Parcelable {
         playerNum = 0;
         isLeader = false;
         isDelete = false;
+        starter = false;
     }
 
     public Player(Cursor cursor) {
@@ -37,6 +38,7 @@ public class Player implements Parcelable {
         playerNum = cursor.getInt(3);
         isLeader = cursor.getInt(4) == 1 ? true : false;
         isDelete = cursor.getInt(5) == 1 ? true : false;
+        starter = false;
     }
 
     protected Player(Parcel in) {
@@ -46,6 +48,7 @@ public class Player implements Parcelable {
         playerNum = in.readInt();
         isLeader = in.readByte() != 0;
         isDelete = in.readByte() != 0;
+        starter = in.readByte() != 0;
     }
 
     public static final Creator<Player> CREATOR = new Creator<Player>() {
@@ -73,6 +76,7 @@ public class Player implements Parcelable {
         dest.writeInt(playerNum);
         dest.writeByte((byte) (isLeader ? 1 : 0));
         dest.writeByte((byte) (isDelete ? 1 : 0));
+        dest.writeByte((byte) (starter ? 1 : 0));
     }
 
     @Override
@@ -97,6 +101,7 @@ public class Player implements Parcelable {
                 .append(", playerNum: ").append(playerNum)
                 .append(", isLeader: ").append(isLeader)
                 .append(", isDelete: ").append(isDelete)
+                .append(", starter: ").append(starter)
                 .append("}");
 
         return builder.toString();

@@ -33,9 +33,20 @@ public class SelectStarterListAdapter extends RecyclerView.Adapter<SelectStarter
     }
 
     @Override
-    public void onBindViewHolder(SelectStarterListHolder holder, int position) {
+    public void onBindViewHolder(final SelectStarterListHolder holder, final int position) {
         holder.tvPlayerName.setText(String.format(context.getResources().getString(R.string.select_starter_name), mList.get(position).playerNum, mList.get(position).playerName));
         holder.cbStarter.setChecked(mList.get(position).starter);
+        holder.cbStarter.setOnCheckedChangeListener(null);
+        holder.cbStarter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.cbStarter.isChecked()) {
+                    mList.get(position).starter = true;
+                } else {
+                    mList.get(position).starter = false;
+                }
+            }
+        });
     }
 
     @Override
@@ -50,7 +61,13 @@ public class SelectStarterListAdapter extends RecyclerView.Adapter<SelectStarter
         notifyDataSetChanged();
     }
 
-    public ArrayList<Player> getPlayerList() {
-        return mList;
+    public ArrayList<Player> getSelectPlayerList() {
+        ArrayList<Player> starterList = new ArrayList<>();
+        for (Player player : mList) {
+            if (player.starter) {
+                starterList.add(player);
+            }
+        }
+        return starterList;
     }
 }
