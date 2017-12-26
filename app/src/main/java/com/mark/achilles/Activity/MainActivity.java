@@ -102,16 +102,9 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
         historyListAdapter = new HistoryListAdapter(MainActivity.this, mGameInfo);
         recyclerviewHistory.setAdapter(historyListAdapter);
         historyListAdapter.refreshHistory();
+        recyclerviewHistory.smoothScrollToPosition(0);
 
         refreshBox();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-        return true;
     }
 
     @OnClick({R.id.btn_two_point_made, R.id.btn_two_point_miss, R.id.btn_three_point_made, R.id.btn_three_point_miss, R.id.btn_free_throw_made, R.id.btn_free_throw_miss, R.id.btn_change_player, R.id.btn_change_ball, R.id.btn_reset_foul, R.id.btn_block, R.id.btn_assist, R.id.btn_off_rebound, R.id.btn_def_rebound, R.id.btn_personal_foul, R.id.btn_steal, R.id.btn_turnover})
@@ -186,6 +179,8 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
                 DatabaseHelper.getInstance(MainActivity.this).createHistory(new History(mGameInfo._id, boxScore._id, action));
 
                 historyListAdapter.refreshHistory();
+                recyclerviewHistory.smoothScrollToPosition(0);
+
                 refreshBox(boxScore, action);
             }
         });
@@ -237,12 +232,23 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Bundle bundle = new Bundle();
+
         switch (item.getItemId()) {
             case R.id.home:
                 openSimpleDialogFragment("", getString(R.string.back_homepage_content), DialogConstant.DIALOG_INTENT_TO_HOMEPAGE, this);
                 break;
             case R.id.history:
+                bundle.putParcelable(GameInfo.TAG, mGameInfo);
+                startActivity(new Intent().setClass(MainActivity.this, HistoryActivity.class).putExtras(bundle));
                 break;
             case R.id.box:
                 break;
