@@ -65,11 +65,9 @@ public class SelectStarterActivity extends BaseActivity {
                 DatabaseHelper.getInstance(SelectStarterActivity.this).createBoxScore(createBoxScore(player));
             }
             DatabaseHelper.getInstance(SelectStarterActivity.this).createBoxScore(createEnemy());
-            ArrayList<BoxScore> boxList = DatabaseHelper.getInstance(SelectStarterActivity.this).getBoxScoreList(mGameInfo._id);
 
             Bundle bundle = new Bundle();
             bundle.putParcelable(GameInfo.TAG, mGameInfo);
-            bundle.putSerializable(Constant.LIST, boxList);
             startActivity(new Intent().setClass(SelectStarterActivity.this, MainActivity.class).putExtras(bundle));
         } else {
             Toast.makeText(SelectStarterActivity.this, getString(R.string.select_starter_player_hint), Toast.LENGTH_SHORT).show();

@@ -77,8 +77,6 @@ public class GameListActivity extends BaseActivity implements OnAdapterItemClick
             startActivity(new Intent().setClass(GameListActivity.this, SelectStarterActivity.class).putExtras(bundle));
         } else {
             //resume game
-            ArrayList<BoxScore> boxList = DatabaseHelper.getInstance(GameListActivity.this).getBoxScoreList(gameInfo._id);
-            bundle.putSerializable(Constant.LIST, boxList);
             startActivity(new Intent().setClass(GameListActivity.this, MainActivity.class).putExtras(bundle));
         }
     }

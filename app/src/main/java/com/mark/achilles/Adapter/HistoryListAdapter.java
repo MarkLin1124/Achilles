@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.mark.achilles.Constant.Constant;
 import com.mark.achilles.Helper.DatabaseHelper;
+import com.mark.achilles.Interface.OnAdapterItemClick;
 import com.mark.achilles.Module.BoxScore;
 import com.mark.achilles.Module.GameInfo;
 import com.mark.achilles.Module.History;
@@ -32,6 +33,8 @@ public class HistoryListAdapter extends RecyclerView.Adapter<SimpleTextHolder> {
     private ArrayList<History> mList = new ArrayList<>();
     private ArrayList<BoxScore> boxScoreArrayList;
 
+    private OnAdapterItemClick onAdapterItemClick;
+
     public HistoryListAdapter(Context context, GameInfo mGameInfo) {
         this.context = context;
         this.mGameInfo = mGameInfo;
@@ -45,7 +48,7 @@ public class HistoryListAdapter extends RecyclerView.Adapter<SimpleTextHolder> {
     }
 
     @Override
-    public void onBindViewHolder(SimpleTextHolder holder, int position) {
+    public void onBindViewHolder(SimpleTextHolder holder, final int position) {
         String name = "";
 
         for (BoxScore boxScore : boxScoreArrayList) {
@@ -61,6 +64,15 @@ public class HistoryListAdapter extends RecyclerView.Adapter<SimpleTextHolder> {
         }
 
         holder.tvItem.setText(String.format(context.getString(R.string.history_item_action), name, getAction(mList.get(position).action)));
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (onAdapterItemClick != null) {
+                    onAdapterItemClick.onItemLongClick(mList.get(position));
+                }
+                return true;
+            }
+        });
     }
 
     private String getAction(int action) {
@@ -120,5 +132,9 @@ public class HistoryListAdapter extends RecyclerView.Adapter<SimpleTextHolder> {
         mList = DatabaseHelper.getInstance(context).getHistoryList(mGameInfo._id);
 
         notifyDataSetChanged();
+    }
+
+    public void setOnAdapterItemClick(OnAdapterItemClick onAdapterItemClick) {
+        this.onAdapterItemClick = onAdapterItemClick;
     }
 }

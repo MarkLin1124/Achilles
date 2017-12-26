@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mark.achilles.Adapter.HistoryListAdapter;
-import com.mark.achilles.Constant.Constant;
 import com.mark.achilles.Constant.DialogConstant;
 import com.mark.achilles.DialogFragment.SelectPlayerDialogFragment;
 import com.mark.achilles.Helper.DatabaseHelper;
@@ -78,7 +77,8 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
     @BindView(R.id.btn_turnover)
     ImageButton btnTurnover;
 
-    private ArrayList<BoxScore> boxScoreArrayList = new ArrayList<>();
+    public static final int REQUEST_HISTORY = 1000;
+
     private GameInfo mGameInfo;
 
     private HistoryListAdapter historyListAdapter;
@@ -89,13 +89,8 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        if (getIntent().getExtras() != null) {
-            if (getIntent().getExtras().containsKey(Constant.LIST)) {
-                boxScoreArrayList = (ArrayList<BoxScore>) getIntent().getExtras().getSerializable(Constant.LIST);
-            }
-            if (getIntent().getExtras().containsKey(GameInfo.TAG)) {
-                mGameInfo = getIntent().getExtras().getParcelable(GameInfo.TAG);
-            }
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey(GameInfo.TAG)) {
+            mGameInfo = getIntent().getExtras().getParcelable(GameInfo.TAG);
         }
         btnChangeBall.setTag(false);
 
@@ -252,7 +247,7 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
                 break;
             case R.id.history:
                 bundle.putParcelable(GameInfo.TAG, mGameInfo);
-                startActivity(new Intent().setClass(MainActivity.this, HistoryActivity.class).putExtras(bundle));
+                startActivityForResult(new Intent().setClass(MainActivity.this, HistoryActivity.class).putExtras(bundle), REQUEST_HISTORY);
                 break;
             case R.id.box:
                 bundle.putParcelable(GameInfo.TAG, mGameInfo);
@@ -262,6 +257,19 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
                 return false;
         }
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_HISTORY:
+                historyListAdapter.refreshHistory();
+                mGameInfo = DatabaseHelper.getInstance(MainActivity.this).getGameInfo(mGameInfo._id);
+                refreshBox();
+                break;
+        }
+
     }
 
     @Override

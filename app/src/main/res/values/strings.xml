@@ -88,6 +88,7 @@
 
     <!-- history activity-->
     <string name="history_title">歷史紀錄</string>
+    <string name="history_delete_hint">是否要刪除該筆紀錄?</string>
 
     <!-- box score activity -->
     <string name="box_score_title">數據表</string>

@@ -185,6 +185,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().update(DatabaseConstant.TABLE_GAME_INFO, values, "_id=?", new String[]{Integer.toString(gameInfo._id)});
     }
 
+    public void updateHistory(History history) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstant.HISTORY_GAME_ID, history.gameID);
+        values.put(DatabaseConstant.HISTORY_BOX_SCORE_ID, history.boxScoreId);
+        values.put(DatabaseConstant.HISTORY_ACTION, history.action);
+        values.put(DatabaseConstant.HISTORY_IS_DELETE, history.isDelete ? 1 : 0);
+
+        getWritableDatabase().update(DatabaseConstant.TABLE_HISTORY, values, "_id=?", new String[]{Integer.toString(history._id)});
+    }
+
     public void updateBoxScore(BoxScore boxScore, int action) {
         ContentValues values = new ContentValues();
         switch (action) {
@@ -243,6 +253,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteGameInfo(GameInfo gameInfo) {
         gameInfo.isDelete = true;
         updateGameInfo(gameInfo);
+    }
+
+    public void deleteHistory(History history){
+        history.isDelete = true;
+        updateHistory(history);
     }
 
     public ArrayList<Team> getTeamList() {
@@ -336,5 +351,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return player;
+    }
+
+    public GameInfo getGameInfo(int gameInfoId){
+        GameInfo gameInfo = null;
+        Cursor cursor = getReadableDatabase().query(TABLE_GAME_INFO, null, "_id=?", new String[]{Integer.toString(gameInfoId)}, null, null, null, null);
+        while (cursor.moveToNext()) {
+            gameInfo = new GameInfo(cursor);
+        }
+
+        return gameInfo;
+    }
+
+    public BoxScore getBoxScore(int boxScoreId) {
+        BoxScore boxScore = null;
+        Cursor cursor = getReadableDatabase().query(TABLE_BOX_SCORE, null, "_id=?", new String[]{Integer.toString(boxScoreId)}, null, null, null, null);
+        while (cursor.moveToNext()) {
+            boxScore = new BoxScore(cursor);
+        }
+
+        return boxScore;
     }
 }

@@ -139,43 +139,43 @@ public class BoxScore implements Parcelable {
     public BoxScore remove(int action) {
         switch (action) {
             case ActionConstant.TWO_POINT_MADE:
-                twoPointMade = twoPointMade--;
+                twoPointMade = twoPointMade - 1;
                 break;
             case ActionConstant.TWO_POINT_MISS:
-                twoPointMiss = twoPointMiss--;
+                twoPointMiss = twoPointMiss - 1;
                 break;
             case ActionConstant.THREE_POINT_MADE:
-                threePointMade = threePointMade--;
+                threePointMade = threePointMade - 1;
                 break;
             case ActionConstant.THREE_POINT_MISS:
-                threePointMiss = threePointMiss--;
+                threePointMiss = threePointMiss - 1;
                 break;
             case ActionConstant.FREE_THROW_MADE:
-                freeThrowMade = freeThrowMade--;
+                freeThrowMade = freeThrowMade - 1;
                 break;
             case ActionConstant.FREE_THROW_MISS:
-                freeThrowMiss = freeThrowMiss--;
+                freeThrowMiss = freeThrowMiss - 1;
                 break;
             case ActionConstant.OFF_REBOUND:
-                offRebound = offRebound--;
+                offRebound = offRebound - 1;
                 break;
             case ActionConstant.DEF_REBOUND:
-                defRebound = defRebound--;
+                defRebound = defRebound - 1;
                 break;
             case ActionConstant.ASSIST:
-                assist = assist--;
+                assist = assist - 1;
                 break;
             case ActionConstant.BLOCK:
-                block = block--;
+                block = block - 1;
                 break;
             case ActionConstant.STEAL:
-                steal = steal--;
+                steal = steal - 1;
                 break;
             case ActionConstant.FOUL:
-                personalFoul = personalFoul--;
+                personalFoul = personalFoul - 1;
                 break;
             case ActionConstant.TURNOVER:
-                turnover = turnover--;
+                turnover = turnover - 1;
                 break;
         }
         return this;
