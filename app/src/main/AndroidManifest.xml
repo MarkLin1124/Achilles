@@ -44,6 +44,9 @@
         <activity
             android:name=".Activity.BoxScoreActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".Activity.ChangePlayerActivity"
+            android:screenOrientation="landscape" />
     </application>
 
 </manifest>

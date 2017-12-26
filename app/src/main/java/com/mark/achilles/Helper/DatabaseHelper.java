@@ -227,6 +227,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             case TURNOVER:
                 values.put(DatabaseConstant.BOX_TURNOVER, boxScore.turnover);
                 break;
+            case ON_COURT:
+                values.put(DatabaseConstant.BOX_ON_COURT, boxScore.onCourt ? 1 : 0);
+                break;
         }
 
         getWritableDatabase().update(DatabaseConstant.TABLE_BOX_SCORE, values, "_id=?", new String[]{Integer.toString(boxScore._id)});

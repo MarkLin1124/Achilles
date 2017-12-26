@@ -129,6 +129,10 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
                 addAction(FREE_THROW_MISS);
                 break;
             case R.id.btn_change_player:
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(GameInfo.TAG, mGameInfo);
+
+                startActivity(new Intent().setClass(MainActivity.this, ChangePlayerActivity.class).putExtras(bundle));
                 break;
             case R.id.btn_change_ball:
                 btnChangeBall.setTag(!(Boolean) btnChangeBall.getTag());

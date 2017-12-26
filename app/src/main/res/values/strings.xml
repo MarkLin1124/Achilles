@@ -103,4 +103,10 @@
     <string name="box_score_foul_constant">犯規</string>
     <string name="box_score_total_point_constant">得分</string>
     <string name="format">%1$d/%2$d</string>
+
+    <!-- substitution activity -->
+    <string name="substitution_title">更換球員</string>
+    <string name="bench_player_constant">板凳球員</string>
+    <string name="oncourt_player_constant">場上球員</string>
+    <string name="on_court_player_hint">場上需要五個人</string>
 </resources>
