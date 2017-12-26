@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.mark.achilles.Constant.DatabaseConstant;
 import com.mark.achilles.Module.BoxScore;
 import com.mark.achilles.Module.GameInfo;
+import com.mark.achilles.Module.History;
 import com.mark.achilles.Module.Player;
 import com.mark.achilles.Module.Team;
 
@@ -73,6 +74,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + BOX_TURNOVER + " INTEGER NOT NULL , "
                 + BOX_PERSONAL_FOUL + " INTEGER NOT NULL , "
                 + BOX_ON_COURT + " INTEGER DEFAULT 0)");
+        db.execSQL("CREATE TABLE " + TABLE_HISTORY
+                + " (_id INTEGER PRIMARY KEY NOT NULL , "
+                + HISTORY_GAME_ID + " INTEGER NOT NULL , "
+                + HISTORY_BOX_SCORE_ID + " INTEGER NOT NULL , "
+                + HISTORY_ACTION + " INTEGER NOT NULL , "
+                + HISTORY_IS_DELETE + " INTEGER DEFAULT 0)");
     }
 
     @Override
@@ -105,6 +112,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(DatabaseConstant.GAME_INFO_TEAM, gameInfo.gameTeam);
         values.put(DatabaseConstant.GAME_INFO_COURT, gameInfo.gameCourt);
         values.put(DatabaseConstant.GAME_INFO_ENEMY_NAME, gameInfo.enemyName);
+        values.put(DatabaseConstant.GAME_INFO_USER_SCORE, gameInfo.userScore);
+        values.put(DatabaseConstant.GAME_INFO_USER_TEAM_FOUL, gameInfo.userTeamFoul);
+        values.put(DatabaseConstant.GAME_INFO_ENEMY_SCORE, gameInfo.enemyScore);
+        values.put(DatabaseConstant.GAME_INFO_ENEMY_TEAM_FOUL, gameInfo.enemyTeamFoul);
         values.put(DatabaseConstant.GAME_INFO_IS_DELETE, gameInfo.isDelete ? 1 : 0);
 
         getWritableDatabase().insert(DatabaseConstant.TABLE_GAME_INFO, null, values);
@@ -132,6 +143,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().insert(DatabaseConstant.TABLE_BOX_SCORE, null, values);
     }
 
+    public void createHistory(History history) {
+        ContentValues values = new ContentValues();
+        values.put(DatabaseConstant.HISTORY_GAME_ID, history.gameID);
+        values.put(DatabaseConstant.HISTORY_BOX_SCORE_ID, history.boxScoreId);
+        values.put(DatabaseConstant.HISTORY_ACTION, history.action);
+        values.put(DatabaseConstant.HISTORY_IS_DELETE, history.isDelete ? 1 : 0);
+
+        getWritableDatabase().insert(DatabaseConstant.TABLE_HISTORY, null, values);
+    }
 
     public void updatePlayer(Player player) {
         ContentValues values = new ContentValues();
@@ -151,6 +171,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(DatabaseConstant.GAME_INFO_TEAM, gameInfo.gameTeam);
         values.put(DatabaseConstant.GAME_INFO_COURT, gameInfo.gameCourt);
         values.put(DatabaseConstant.GAME_INFO_ENEMY_NAME, gameInfo.enemyName);
+        values.put(DatabaseConstant.GAME_INFO_USER_SCORE, gameInfo.userScore);
+        values.put(DatabaseConstant.GAME_INFO_USER_TEAM_FOUL, gameInfo.userTeamFoul);
+        values.put(DatabaseConstant.GAME_INFO_ENEMY_SCORE, gameInfo.enemyScore);
+        values.put(DatabaseConstant.GAME_INFO_ENEMY_TEAM_FOUL, gameInfo.enemyTeamFoul);
         values.put(DatabaseConstant.GAME_INFO_IS_DELETE, gameInfo.isDelete ? 1 : 0);
 
         getWritableDatabase().update(DatabaseConstant.TABLE_GAME_INFO, values, "_id=?", new String[]{Integer.toString(gameInfo._id)});
@@ -215,6 +239,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             BoxScore boxScore = new BoxScore(cursor);
             list.add(boxScore);
+        }
+
+        cursor.close();
+        return list;
+    }
+
+    public ArrayList<History> getHistoryList(int gameID) {
+        ArrayList<History> list = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().query(TABLE_HISTORY, null, HISTORY_GAME_ID + "=?", new String[]{Integer.toString(gameID)}, null, null, "_id DESC", null);
+
+        while (cursor.moveToNext()) {
+            History history = new History(cursor);
+            if (!history.isDelete) {
+                list.add(history);
+            }
         }
 
         cursor.close();

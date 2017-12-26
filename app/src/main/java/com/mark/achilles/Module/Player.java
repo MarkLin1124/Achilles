@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.mark.achilles.Constant.ActionConstant;
+
 /**
  * Created by marklin on 2017/12/25.
  */

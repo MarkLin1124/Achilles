@@ -12,6 +12,8 @@ public class DatabaseConstant {
     public static final String TABLE_PLAYER = "player";
     public static final String TABLE_GAME_INFO = "gameInfo";
     public static final String TABLE_BOX_SCORE = "boxScore";
+    public static final String TABLE_HISTORY = "history";
+
     //team module
     public static final String TEAM_NAME = "teamName";
     public static final String TEAM_CODE = "teamCode";
@@ -29,6 +31,10 @@ public class DatabaseConstant {
     public static final String GAME_INFO_TEAM = "gameInfoTeam";
     public static final String GAME_INFO_COURT = "gameInfoCourt";
     public static final String GAME_INFO_ENEMY_NAME = "gameInfoEnemyName";
+    public static final String GAME_INFO_USER_SCORE = "gameInfoUserScore";
+    public static final String GAME_INFO_USER_TEAM_FOUL = "gameInfoUserTeamFoul";
+    public static final String GAME_INFO_ENEMY_SCORE = "gameInfoEnemyScore";
+    public static final String GAME_INFO_ENEMY_TEAM_FOUL = "gameInfoEnemyFoul";
     public static final String GAME_INFO_IS_DELETE = "gameInfoIsDelete";
 
     //box score module
@@ -48,4 +54,10 @@ public class DatabaseConstant {
     public static final String BOX_TURNOVER = "boxTurnOver";
     public static final String BOX_PERSONAL_FOUL = "boxPersonalFoul";
     public static final String BOX_ON_COURT = "boxOnCourt";
+
+    //history module
+    public static final String HISTORY_GAME_ID = "historyGameId";
+    public static final String HISTORY_BOX_SCORE_ID = "historyBoxScoreId";
+    public static final String HISTORY_ACTION = "historyAction";
+    public static final String HISTORY_IS_DELETE = "historyIsDelete";
 }

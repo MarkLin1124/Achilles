@@ -19,6 +19,11 @@
     <string name="enemy">對方</string>
     <string name="team_foul">團犯</string>
 
+    <!-- menu -->
+    <string name="intent_to_home">儲存回首頁</string>
+    <string name="history">歷史紀錄</string>
+    <string name="box_score">數據</string>
+
     <!-- home page activity -->
     <string name="home_page_team_manager">球隊管理</string>
     <string name="home_page_record">開始紀錄</string>
@@ -60,4 +65,7 @@
     <string name="select_starter_player_name_constant">球員名稱</string>
     <string name="select_starter_name">#%1$d %2$s</string>
     <string name="select_starter_player_hint">需要五位先發球員</string>
+
+    <!-- main activity -->
+    <string name="back_homepage_content">是否要結束紀錄?</string>
 </resources>

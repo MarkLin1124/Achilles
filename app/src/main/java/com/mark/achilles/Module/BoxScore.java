@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.mark.achilles.Constant.ActionConstant;
+
 /**
  * Created by marklin on 2017/12/26.
  */
@@ -87,6 +89,96 @@ public class BoxScore implements Parcelable {
         turnover = in.readInt();
         personalFoul = in.readInt();
         onCourt = in.readByte() != 0;
+    }
+
+    public BoxScore add(int action) {
+        switch (action) {
+            case ActionConstant.TWO_POINT_MADE:
+                twoPointMade = twoPointMade++;
+                break;
+            case ActionConstant.TWO_POINT_MISS:
+                twoPointMiss = twoPointMiss++;
+                break;
+            case ActionConstant.THREE_POINT_MADE:
+                threePointMade = threePointMade++;
+                break;
+            case ActionConstant.THREE_POINT_MISS:
+                threePointMiss = threePointMiss++;
+                break;
+            case ActionConstant.FREE_THROW_MADE:
+                freeThrowMade = freeThrowMade++;
+                break;
+            case ActionConstant.FREE_THROW_MISS:
+                freeThrowMiss = freeThrowMiss++;
+                break;
+            case ActionConstant.OFF_REBOUND:
+                offRebound = offRebound++;
+                break;
+            case ActionConstant.DEF_REBOUND:
+                defRebound = defRebound++;
+                break;
+            case ActionConstant.ASSIST:
+                assist = assist++;
+                break;
+            case ActionConstant.BLOCK:
+                block = block++;
+                break;
+            case ActionConstant.STEAL:
+                steal = steal++;
+                break;
+            case ActionConstant.FOUL:
+                personalFoul = personalFoul++;
+                break;
+            case ActionConstant.TURNOVER:
+                turnover = turnover++;
+                break;
+        }
+        return this;
+    }
+
+    public BoxScore remove(int action) {
+        switch (action) {
+            case ActionConstant.TWO_POINT_MADE:
+                twoPointMade = twoPointMade--;
+                break;
+            case ActionConstant.TWO_POINT_MISS:
+                twoPointMiss = twoPointMiss--;
+                break;
+            case ActionConstant.THREE_POINT_MADE:
+                threePointMade = threePointMade--;
+                break;
+            case ActionConstant.THREE_POINT_MISS:
+                threePointMiss = threePointMiss--;
+                break;
+            case ActionConstant.FREE_THROW_MADE:
+                freeThrowMade = freeThrowMade--;
+                break;
+            case ActionConstant.FREE_THROW_MISS:
+                freeThrowMiss = freeThrowMiss--;
+                break;
+            case ActionConstant.OFF_REBOUND:
+                offRebound = offRebound--;
+                break;
+            case ActionConstant.DEF_REBOUND:
+                defRebound = defRebound--;
+                break;
+            case ActionConstant.ASSIST:
+                assist = assist--;
+                break;
+            case ActionConstant.BLOCK:
+                block = block--;
+                break;
+            case ActionConstant.STEAL:
+                steal = steal--;
+                break;
+            case ActionConstant.FOUL:
+                personalFoul = personalFoul--;
+                break;
+            case ActionConstant.TURNOVER:
+                turnover = turnover--;
+                break;
+        }
+        return this;
     }
 
     public static final Creator<BoxScore> CREATOR = new Creator<BoxScore>() {
