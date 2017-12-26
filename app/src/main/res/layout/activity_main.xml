@@ -1,370 +1,332 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="horizontal" >
-
-    <TableLayout
-        android:id="@+id/tl_left"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_weight="4"
-        android:orientation="vertical" >
-
-        <TableRow
-            android:id="@+id/widget34"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/two_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/twopoint_made"
-                android:text="兩分球" />
-
-            <ImageButton
-                android:id="@+id/two_point_miss"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.01"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/twopoint_miss"
-                android:text="兩分球沒進" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/widget35"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/three_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/threepoint_made"
-                android:text="三分球"
-                android:textColor="@color/black" />
-
-            <ImageButton
-                android:id="@+id/three_point_miss"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/threepoint_miss"
-                android:text="三分球沒進" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/widget36"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/free_throw"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/freethrow_made"
-                android:text="罰球" />
-
-            <ImageButton
-                android:id="@+id/free_throw_miss"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/freethrow_miss"
-                android:text="罰球沒進" />
-        </TableRow>
-
-        <ImageButton
-            android:id="@+id/changeplayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/changeplayer"
-            android:text="更換球員" />
-    </TableLayout>
+    android:background="@android:color/black"
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="7"
-        android:background="@drawable/viewbackground"
-        android:orientation="vertical" >
+        android:layout_weight="0.25"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_two_point_made"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/twopoint_made" />
+
+            <ImageButton
+                android:id="@+id/btn_two_point_miss"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/twopoint_miss" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_three_point_made"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/threepoint_made" />
+
+            <ImageButton
+                android:id="@+id/btn_three_point_miss"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/threepoint_miss" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_free_throw_made"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/freethrow_made" />
+
+            <ImageButton
+                android:id="@+id/btn_free_throw_miss"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/freethrow_miss" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btn_change_player"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:background="@null"
+            android:scaleType="centerCrop"
+            android:src="@drawable/changeplayer" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="5" >
+            android:background="@drawable/viewbackground"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
-                android:layout_weight="2"
-                android:orientation="vertical" >
+                android:layout_weight="0.33"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/team"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/red"
-                    android:gravity="center"
-                    android:text="我方"
-                    android:textColor="@color/d_red"
-                    android:textSize="24sp" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:text="@string/user"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/score_team"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_user_score"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/red"
-                    android:gravity="center"
-                    android:text=""
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:text="0"
                     android:textColor="@color/yellow"
-                    android:textSize="48sp" />
+                    android:textSize="32sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/team_foul"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/score_foul"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:background="@color/red"
-                        android:text="團犯"
-                        android:textColor="@color/d_red"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/score_foul_num"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:background="@color/red"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/yellow"
-                        android:textSize="24sp" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_user_team_foul"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:text="0"
+                    android:textColor="@color/yellow"
+                    android:textSize="32sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_ball"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
-                android:layout_weight="1"
-                android:orientation="vertical" >
+                android:layout_weight="0.34"
+                android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/ball_change"
+                    android:id="@+id/btn_change_ball"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:visibility="invisible"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/ball_left"
                     android:scaleType="fitCenter" />
 
-                <TextView
-                    android:id="@+id/null_mid_mid"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="" />
+                    android:layout_height="match_parent">
 
-                <ImageButton
-                    android:id="@+id/faul_zero"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/reset" />
+                    <ImageButton
+                        android:id="@+id/btn_reset_foul"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@null"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/reset" />
+                </RelativeLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="left"
-                android:layout_weight="2"
-                android:orientation="vertical" >
+                android:layout_weight="0.33"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/enemy"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/gray"
-                    android:gravity="center"
-                    android:text="對方"
-                    android:textColor="@color/d_gray"
-                    android:textSize="24sp" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="8dp"
+                    android:text="@string/enemy"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/score_enemy"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_enemy_score"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/gray"
-                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
                     android:text="0"
                     android:textColor="@color/yellow"
-                    android:textSize="48sp" />
+                    android:textSize="32sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:layout_gravity="center_horizontal"
+                    android:text="@string/team_foul"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/score_foul_enemy"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/gray"
-                        android:text="團犯"
-                        android:textColor="@color/d_gray"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/score_foul_enemy_num"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:background="@color/gray"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textColor="@color/yellow"
-                        android:textSize="24sp" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_enemy_team_foul"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="8dp"
+                    android:text="0"
+                    android:textColor="@color/yellow"
+                    android:textSize="32sp" />
             </LinearLayout>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_history"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light_gray"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.25"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btn_block"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/block" />
+
+            <ImageButton
+                android:id="@+id/btn_assist"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/assist" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:background="@color/black" >
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:orientation="horizontal">
 
-            <ListView
-                android:id="@+id/detail"
-                android:layout_width="200dip"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/btn_off_rebound"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:cacheColorHint="#00000000" >
-            </ListView>
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/off_reb" />
+
+            <ImageButton
+                android:id="@+id/btn_def_rebound"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/def_reb" />
         </LinearLayout>
-    </LinearLayout>
 
-    <TableLayout
-        android:id="@+id/tl_right"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_weight="4"
-        android:orientation="vertical" >
-
-        <TableRow
-            android:id="@+id/w34"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
+            android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/block"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btn_personal_foul"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/block"
-                android:text="阻攻" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/p_faul" />
 
             <ImageButton
-                android:id="@+id/assist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/btn_steal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/assist"
-                android:text="助攻" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/w35"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/off_reb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/off_reb"
-                android:text="進攻籃板"
-                android:textColor="@color/black" />
-
-            <ImageButton
-                android:id="@+id/def_reb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/def_reb"
-                android:text="防守籃板" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/w36"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/p_faul"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/p_faul"
-                android:text="犯規" />
-
-            <ImageButton
-                android:id="@+id/steal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/steal"
-                android:text="抄截" />
-        </TableRow>
+                android:scaleType="centerCrop"
+                android:src="@drawable/steal" />
+        </LinearLayout>
 
         <ImageButton
-            android:id="@+id/turnover"
+            android:id="@+id/btn_turnover"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.25"
             android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/turnover"
-            android:text="失誤" />
-    </TableLayout>
-
+            android:scaleType="centerCrop"
+            android:src="@drawable/turnover" />
+    </LinearLayout>
 </LinearLayout>
