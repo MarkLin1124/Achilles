@@ -33,6 +33,14 @@ public class History implements Parcelable {
         isDelete = cursor.getInt(4) == 1 ? true : false;
     }
 
+    public History(int gameID, int boxScoreId, int action) {
+        _id = -1;
+        this.gameID = gameID;
+        this.boxScoreId = boxScoreId;
+        this.action = action;
+        isDelete = false;
+    }
+
     protected History(Parcel in) {
         _id = in.readInt();
         gameID = in.readInt();

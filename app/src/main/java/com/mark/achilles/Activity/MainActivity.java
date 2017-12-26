@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.mark.achilles.Adapter.HistoryListAdapter;
 import com.mark.achilles.Constant.Constant;
 import com.mark.achilles.Constant.DialogConstant;
 import com.mark.achilles.DialogFragment.SelectPlayerDialogFragment;
@@ -20,6 +21,7 @@ import com.mark.achilles.Interface.OnDialogClickListener;
 import com.mark.achilles.Interface.OnListDialogClickListener;
 import com.mark.achilles.Module.BoxScore;
 import com.mark.achilles.Module.GameInfo;
+import com.mark.achilles.Module.History;
 import com.mark.achilles.R;
 
 import java.util.ArrayList;
@@ -79,6 +81,8 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
     private ArrayList<BoxScore> boxScoreArrayList = new ArrayList<>();
     private GameInfo mGameInfo;
 
+    private HistoryListAdapter historyListAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +97,11 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
                 mGameInfo = getIntent().getExtras().getParcelable(GameInfo.TAG);
             }
         }
+        btnChangeBall.setTag(false);
+
+        historyListAdapter = new HistoryListAdapter(MainActivity.this, mGameInfo);
+        recyclerviewHistory.setAdapter(historyListAdapter);
+        historyListAdapter.refreshHistory();
 
         refreshBox();
     }
@@ -129,6 +138,13 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
             case R.id.btn_change_player:
                 break;
             case R.id.btn_change_ball:
+                btnChangeBall.setTag(!(Boolean) btnChangeBall.getTag());
+
+                if ((Boolean) btnChangeBall.getTag()) {
+                    btnChangeBall.setBackground(getResources().getDrawable(R.drawable.ball_right));
+                } else {
+                    btnChangeBall.setBackground(getResources().getDrawable(R.drawable.ball_left));
+                }
                 break;
             case R.id.btn_reset_foul:
                 mGameInfo.userTeamFoul = 0;
@@ -167,6 +183,9 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
             public void OnListItemClick(int position, Parcelable parcelable) {
                 BoxScore boxScore = (BoxScore) parcelable;
                 DatabaseHelper.getInstance(MainActivity.this).updateBoxScore(boxScore.add(action), action);
+                DatabaseHelper.getInstance(MainActivity.this).createHistory(new History(mGameInfo._id, boxScore._id, action));
+
+                historyListAdapter.refreshHistory();
                 refreshBox(boxScore, action);
             }
         });

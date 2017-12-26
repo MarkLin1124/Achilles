@@ -1,15 +1,14 @@
 package com.mark.achilles.Adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.mark.achilles.DialogFragment.SimpleListDialogFragment;
 import com.mark.achilles.Interface.OnListDialogClickListener;
 import com.mark.achilles.R;
+import com.mark.achilles.ViewHolder.SimpleTextHolder;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  * Created by marklin on 2017/12/25.
  */
 
-public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.SimpleListHolder> {
+public class SimpleListAdapter extends RecyclerView.Adapter<SimpleTextHolder> {
     public static final String TAG = SimpleListAdapter.class.getSimpleName();
 
     private SimpleListDialogFragment dialogFragment;
@@ -30,13 +29,13 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.Si
     }
 
     @Override
-    public SimpleListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SimpleTextHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_simple_list, parent, false);
-        return new SimpleListHolder(view);
+        return new SimpleTextHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SimpleListHolder holder, final int position) {
+    public void onBindViewHolder(SimpleTextHolder holder, final int position) {
         holder.tvItem.setText(mList.get(position));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,15 +63,5 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.Si
         this.mList = mList;
 
         notifyDataSetChanged();
-    }
-
-    public class SimpleListHolder extends RecyclerView.ViewHolder {
-        public TextView tvItem;
-
-        public SimpleListHolder(View itemView) {
-            super(itemView);
-
-            tvItem = (TextView) itemView.findViewById(R.id.tv_item);
-        }
     }
 }

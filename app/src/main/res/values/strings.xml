@@ -69,4 +69,20 @@
 
     <!-- main activity -->
     <string name="back_homepage_content">是否要結束紀錄?</string>
+    <string name="history_item_action">%1$s %2$s</string>
+
+    <!-- action -->
+    <string name="two_point_made">兩分球進</string>
+    <string name="two_point_miss">兩分球沒進</string>
+    <string name="three_point_made">三分球進</string>
+    <string name="three_point_miss">三分球沒進</string>
+    <string name="free_throw_made">罰球進</string>
+    <string name="free_throw_miss">罰球沒進</string>
+    <string name="off_rebound">進攻籃板</string>
+    <string name="def_rebound">防守籃板</string>
+    <string name="assist">助攻</string>
+    <string name="block">阻攻</string>
+    <string name="steal">抄截</string>
+    <string name="turnover">失誤</string>
+    <string name="foul">犯規</string>
 </resources>
