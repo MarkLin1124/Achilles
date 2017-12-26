@@ -198,10 +198,6 @@ public class BoxScore implements Parcelable {
         return point;
     }
 
-    public int getTotalRebound() {
-        return offRebound + defRebound;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof BoxScore) {

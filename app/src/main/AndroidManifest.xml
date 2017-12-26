@@ -37,9 +37,12 @@
         <activity
             android:name=".Activity.MainActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".Activity.HistoryActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".Activity.BoxScoreActivity"
             android:screenOrientation="landscape" />
     </application>
 

@@ -85,4 +85,22 @@
     <string name="steal">抄截</string>
     <string name="turnover">失誤</string>
     <string name="foul">犯規</string>
+
+    <!-- history activity-->
+    <string name="history_title">歷史紀錄</string>
+
+    <!-- box score activity -->
+    <string name="box_score_title">數據表</string>
+    <string name="box_score_player_name_constant">球員</string>
+    <string name="box_score_two_point_constant">兩分</string>
+    <string name="box_score_three_point_constant">三分</string>
+    <string name="box_score_free_throw_constant">罰球</string>
+    <string name="box_score_rebound_constant">攻/守籃</string>
+    <string name="box_score_assist_constant">助攻</string>
+    <string name="box_score_block_constant">阻攻</string>
+    <string name="box_score_steal_constant">抄截</string>
+    <string name="box_score_turnover_constant">失誤</string>
+    <string name="box_score_foul_constant">犯規</string>
+    <string name="box_score_total_point_constant">得分</string>
+    <string name="format">%1$d/%2$d</string>
 </resources>

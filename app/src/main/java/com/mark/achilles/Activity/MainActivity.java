@@ -251,6 +251,8 @@ public class MainActivity extends BaseActivity implements OnDialogClickListener 
                 startActivity(new Intent().setClass(MainActivity.this, HistoryActivity.class).putExtras(bundle));
                 break;
             case R.id.box:
+                bundle.putParcelable(GameInfo.TAG, mGameInfo);
+                startActivity(new Intent().setClass(MainActivity.this, BoxScoreActivity.class).putExtras(bundle));
                 break;
             default:
                 return false;
